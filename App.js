@@ -6,11 +6,10 @@ class App extends Component {
     render() {
         return (
             <Container>
-                <Header searchBar rounded>
+                <Header searchBar rounded style={{backgroundColor: '#fff'}}>
                     <Item>
                         <Icon name="search"/>
                         <Input placeholder="Search"/>
-                        <Icon name="people"/>
                     </Item>
                     <Button transparent>
                         <Text>Search</Text>
@@ -23,14 +22,11 @@ class App extends Component {
                           data={categories}
                           horizontal={false}
                           numColumns={2}
-                          keyExtractor={(item) => {
-                              return item.id;
-                          }}
-                          ItemSeparatorComponent={() => {
-                              return (
-                                  <View style={styles.separator}/>
-                              );
-                          }}
+                          keyExtractor={(item) => (item.id)}
+                          ItemSeparatorComponent={() => (<View style={styles.separator}/>)}
+                          ListHeaderComponent={() => (
+                              <Text style={{fontWeight: 'bold', color: '#777', fontSize: 20, marginBottom: 5 }}>Top Categories</Text>
+                          )}
                           renderItem={(category, index) => {
                               return (
                                   <Card style={styles.card} key={index}>
@@ -47,15 +43,19 @@ class App extends Component {
                 {/*</Content>*/}
 
                 <Footer>
-                    <FooterTab>
-                        <Button full>
-                            <Text>Footer</Text>
-                        </Button>
+                    <FooterTab style={styles.footerTabContainer}>
+                        { tabs.map((tab, index) => {
+                            return (
+                                <Button vertical style={styles.tabButton} key={index}>
+                                    <Icon name={tab.icon} style={{color: tab.active ? "#222" : "#aaa"}}/>
+                                    <Text style={{color: tab.active ? "#222" : "#aaa"}}>{tab.name}</Text>
+                                </Button>
+                            );
+                        })}
                     </FooterTab>
                 </Footer>
             </Container>
-        )
-            ;
+        );
     }
 }
 
@@ -66,14 +66,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     listContainer: {
-        alignItems: 'center',
+        alignItems: 'stretch',
     },
     separator: {
         marginTop: 10,
     },
     card: {
         flexBasis: '50%',
-        marginRight: 5, marginLeft: 5, marginTop: 0, marginBottom: 0,
+        marginRight: 10, marginLeft: 0, marginTop: 0, marginBottom: 0,
         position: 'relative',
         justifyContent: 'center',
     },
@@ -92,15 +92,46 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         textAlign: "center",
     },
-
     overlay: {
         // backgroundColor: "#000000a0",
         backgroundColor: 'rgba(0,0,0,0.35)',
         height: imgHeight,
         justifyContent: "center"
     },
+
+    footerTabContainer: {
+        backgroundColor: "#fff",
+        borderTopWidth: 2,
+        borderTopColor: "#bbb"
+    },
+    tabButton: {
+        backgroundColor: '#fff'
+    },
 });
 
+
+let tabs = [
+    {
+        name: 'home',
+        icon: 'home',
+        active: true
+    },
+    {
+        name: 'search',
+        icon: 'search',
+        active: false
+    },
+    {
+        name: 'orders',
+        icon: 'bookmark',
+        active: false
+    },
+    {
+        name: 'account',
+        icon: 'person',
+        active: false
+    },
+]
 const categories = [
     {
         "id": 1,
