@@ -24,9 +24,7 @@ class App extends Component {
                           numColumns={2}
                           keyExtractor={(item) => (item.id)}
                           ItemSeparatorComponent={() => (<View style={styles.separator}/>)}
-                          ListHeaderComponent={() => (
-                              <Text style={{fontWeight: 'bold', color: '#777', fontSize: 20, marginBottom: 5 }}>Top Categories</Text>
-                          )}
+                          ListHeaderComponent={() => (<Text style={styles.flatListHeader}>Top Categories</Text>)}
                           renderItem={(category, index) => {
                               return (
                                   <Card style={styles.card} key={index}>
@@ -61,12 +59,19 @@ class App extends Component {
 
 const imgHeight = 150
 const styles = StyleSheet.create({
+    flatListHeader: {
+        fontWeight: 'bold',
+        color: '#666',
+        fontSize: 17,
+        marginBottom: 8
+    },
     list: {
         paddingHorizontal: 10,
         paddingVertical: 10,
     },
     listContainer: {
         alignItems: 'stretch',
+        paddingBottom: 20
     },
     separator: {
         marginTop: 10,
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         color: "white",
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "bold",
         textAlign: "center",
     },
